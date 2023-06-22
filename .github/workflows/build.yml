@@ -94,23 +94,17 @@ jobs:
           artifacts: "target/exist-web.jar"
           bodyFile: "body.log"
           token: ${{ secrets.GITHUB_TOKEN }}
-  deploy:
-    #Depends on sonar's job
-    needs: build
-    name: Deploy
-    runs-on: ubuntu-latest
-    steps:
       - name: Azure login
         id: login
         uses: azure/login@v1.4.3
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Set AKS context
-        id: set-context
-        uses: azure/aks-set-context@v3
-        with:
-          resource-group: 'handson'
-          cluster-name: 'handson'
+          - name: Set AKS context
+            id: set-context
+            uses: azure/aks-set-context@v3
+            with:
+              resource-group: 'handson'
+              cluster-name: 'handson'
       - name: Setup kubectl
         id: install-kubectl
         uses: azure/setup-kubectl@v3
