@@ -95,6 +95,9 @@ jobs:
           bodyFile: "body.log"
           token: ${{ secrets.GITHUB_TOKEN }}
   deploy:
+    #Depends on sonar's job
+    needs: build
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Azure login
