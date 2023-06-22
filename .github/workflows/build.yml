@@ -63,8 +63,8 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       #Build the application using Maven
-      - name: Build with Maven
-        run: mvn -B package -DskipTests --file pom.xml
+      - name: Build and Push Image with Maven
+        run: mvn -B package jib:build -Djib.to.image=handson12345.azurecr.io/exist-web:handson-${{ env.GITHUB_REF_NAME }} -Djib.to.auth.username=${{ secrets.service_principal }} -Djib.to.auth.password=${{ secrets.service_principal_password }} -DskipTests --file pom.xml
       - name: get semantic tag version and release notes from commit messages
         id: tag
         run: |
