@@ -115,5 +115,5 @@ jobs:
           namespace: 'handson'
           manifests: |
             handson-k8.yaml
-          images: 'handson12345.azurecr.io/exist-web:${GITHUB_REF_NAME}'
+          images: 'handson12345.azurecr.io/exist-web:${{ env.GITHUB_REF_NAME }}'
           pull-images: false
