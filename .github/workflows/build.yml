@@ -37,7 +37,7 @@ jobs:
   build:
     #Depends on sonar's job
     needs: tests
-    name: Build
+    name: Build and Deploy
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
     permissions:
@@ -64,7 +64,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       #Build the application using Maven
       - name: Build and Push Image with Maven
-        run: mvn -B package jib:build -Djib.to.image=handson12345.azurecr.io/exist-web:handson-${GITHUB_REF_NAME} -Djib.to.auth.username=${{ secrets.service_principal }} -Djib.to.auth.password=${{ secrets.service_principal_password }} -DskipTests --file pom.xml
+        run: mvn -B package jib:build -Djib.to.image=handson12345.azurecr.io/exist-web:${GITHUB_REF_NAME} -Djib.to.auth.username=${{ secrets.service_principal }} -Djib.to.auth.password=${{ secrets.service_principal_password }} -DskipTests --file pom.xml
       - name: get semantic tag version and release notes from commit messages
         id: tag
         run: |

@@ -22,7 +22,9 @@ kind: Service
 metadata:
   name: exist-web
 spec:
+  type: LoadBalancer
   ports:
     - port: 8080
+      targetPort: 80
   selector:
     app: exist-web
